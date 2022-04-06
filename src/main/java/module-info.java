@@ -1,4 +1,4 @@
-module codigoprincipal.proyecto1datos1 {
+module codigoprincipal.proyecto1datos {
     requires javafx.controls;
     requires javafx.fxml;
 
