@@ -10,11 +10,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-
+//esta clase se llama desde Cliente java
 public class ClientCargarVentana {
 
     public ClientCargarVentana(Stage Lobby){
-        FXMLLoader fxmlLoader = new FXMLLoader(Cliente.class.getResource("hello-view.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(Cliente.class.getResource("hello-view.fxml"));
 
         //caracteristicas principales de la ventana
         Group root = new Group();
