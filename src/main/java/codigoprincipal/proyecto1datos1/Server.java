@@ -10,6 +10,7 @@ public class Server implements Runnable{
     public static int port = 9000;
     public static ServerSocket socketServidor;
 
+    //inicia el hilo del servidor
     public static void startServer(){
         System.out.println("SUCCESS");
         Server server = new Server();
@@ -28,7 +29,7 @@ public class Server implements Runnable{
 
     @Override
     public void run(){
-        System.out.println("Anroemdp server al puerto "+port);
+        System.out.println("Puerto del server al puerto "+port);
         try{
             socketServidor= new ServerSocket(port);
 
@@ -36,11 +37,14 @@ public class Server implements Runnable{
                 System.out.println("Esperando conexiones...");
                 Socket cliente = socketServidor.accept();
                 System.out.println("Cliente conectado");
+
                 SesionServidor sesionServidor = new SesionServidor(cliente);
                 Thread hiloSesionServidor = new Thread(sesionServidor);
                 hiloSesionServidor.start();
+
             }while(socketServidor.isBound());
             stopServer();
+
         }catch (IOException e){
             System.out.println("ERROR: server fallo al iniciar: "+e.getMessage());
         }

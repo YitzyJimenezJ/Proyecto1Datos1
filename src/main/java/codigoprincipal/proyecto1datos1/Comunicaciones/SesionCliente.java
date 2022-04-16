@@ -11,35 +11,50 @@ public class SesionCliente implements Runnable {
     Socket socketCliente;
     BufferedWriter bw;
 
-    String IdJugador;
+    String NombreJugador;
+    String NombreJugador2;
 
-    public SesionCliente(Socket socketCliente){
+    public SesionCliente(Socket socketCliente, String Nombre1, String Nombre2){
         this.socketCliente = socketCliente;
+        this.NombreJugador=Nombre1;
+        this.NombreJugador2=Nombre2;
     }
 
     @Override
     public void run(){
         OutputStream os = null;
         OutputStreamWriter osw;
-        //BufferedWriter bw;
         InputStream is = null;
         InputStreamReader isr;
         BufferedReader br;
-        IdJugador = generarId();
+        //NombreJugador = generarId();
         try{
             os = socketCliente.getOutputStream();
-            osw = new OutputStreamWriter(os);
-            bw = new BufferedWriter(osw);
+            osw = new OutputStreamWriter(os); //convierte los datos en string para enviar, en su parametro va el socket.el outputStream
+            bw = new BufferedWriter(osw); //este enviara el mensaje al servidor
+
             is = socketCliente.getInputStream();
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
 
-            Protocolo.writeMessage(bw, Protocolo.cmdInicio, IdJugador);
+            Protocolo.writeStart(bw, Protocolo.cmdInicio, NombreJugador,NombreJugador2); //se llama al metodo del protocolo que envia el mensaje al servidor
 
-            System.out.println("ID es "+IdJugador);
+            System.out.println("ID es "+NombreJugador+NombreJugador2);
 
             System.out.println("Comando inicio enviado");
 
+            System.out.println("Iniciando prueba lectura");
+
+            if(is.available()>0){
+                String[] completeCommand = Protocolo.readSplitMessage(br);
+
+                String commando = completeCommand[0]; //aqui se sabe cual comando recibio
+                System.out.println(commando);
+
+            }
+
+
+            /*
             do{
                 if(is.available()>0){
                     String[] completeCommand = Protocolo.readSplitMessage(br);
@@ -59,6 +74,7 @@ public class SesionCliente implements Runnable {
                    }
                 }
             }while(socketCliente.isConnected());//corre mientras el socket esta conectado
+            */
         }catch(Exception e) {
             System.out.println("ERROR: "+e.getMessage());
         }

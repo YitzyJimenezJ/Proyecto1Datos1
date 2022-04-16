@@ -3,7 +3,7 @@ package codigoprincipal.proyecto1datos1.protocolos;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-
+//Tiene la definicion de los protocolos y sus metodos
 public class Protocolo {
     //Servidor manda
     public static final String cmdClear = "clear";
@@ -25,6 +25,9 @@ public class Protocolo {
         writeMessage(bw, message + " " + parameter);
 
     }
+    public static void writeStart(BufferedWriter bw, String message, String nombre1, String nombre2) throws IOException{
+        writeMessage(bw, message+" "+nombre1+" "+nombre2);
+    }
 
     public static String readMessage(BufferedReader br) throws IOException {
         String command = br.readLine();
@@ -33,6 +36,7 @@ public class Protocolo {
 
     public static String[] readSplitMessage(BufferedReader br) throws IOException {
         String command = readMessage(br);
+        System.out.println("The command is: "+command);
         return command.split(" ");
     }
 }

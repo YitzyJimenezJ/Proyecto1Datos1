@@ -27,6 +27,17 @@ public class elementosGraficos {
             elementos.borrarDato(elementos.obtenerDato(i));
         }
     }
+    public objetosImagenes encontrarElemento(String ID){
+        for(int i=0;i<elementos.tamanoLista();i++){
+            String IDelemento = elementos.obtenerDato(i).getId();
+            if(ID.equals(IDelemento)){
+                return elementos.obtenerDato(i);
+            }
+        }
+        return null;
+    }
+
+
     public int encontrarElementoIndice(String ID){
         int i = 0;
         while(i< elementos.tamanoLista()){
