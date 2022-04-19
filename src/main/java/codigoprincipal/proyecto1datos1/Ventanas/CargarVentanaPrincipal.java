@@ -54,7 +54,7 @@ public class CargarVentanaPrincipal {
                 socketCliente=new Socket(host, port); //setea el socket que se conectara al servidor
                 System.out.println("Conectando al servidor . . .");
 
-                sesionCliente=new SesionCliente(socketCliente,nombre1,nombre2);
+                sesionCliente=new SesionCliente(socketCliente,nombre1,nombre2,categoria,ventanaCliente);
 
                 Thread hiloSesionCliente = new Thread(sesionCliente);
                 hiloSesionCliente.start();// inicia el cliente en un hilo

@@ -3,8 +3,8 @@ package codigoprincipal.proyecto1datos1.Listas;
 import java.io.Serializable;
 
 class Nodo<T> implements Serializable {
-    public Nodo siguiente;
-    public Nodo anterior;
+    public Nodo<T> siguiente;
+    public Nodo<T> anterior;
     public T valor;
     public int posicion;
     public Nodo(){
@@ -14,7 +14,7 @@ class Nodo<T> implements Serializable {
         this.posicion=0;
     }
     public Nodo(T dato){
-        this.valor=null;
+        this.valor=dato;
         this.siguiente=null;
         this.anterior=null;
         this.posicion=0;

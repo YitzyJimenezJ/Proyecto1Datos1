@@ -19,7 +19,7 @@ public class ListaDoble<T> implements Serializable, Lista<T> {
             this.primero = new Nodo<>();
             this.ultimo = this.primero;
         } else {
-            Nodo<T> actual = new Nodo<>();
+            Nodo<T> actual = new Nodo<>(dato);
             actual.siguiente = this.primero;
             this.primero.anterior = actual;
             this.primero = actual;
@@ -28,7 +28,7 @@ public class ListaDoble<T> implements Serializable, Lista<T> {
     }
     public void agregarUltimo(T dato) {
         if (this.primero == null) {
-            this.primero = new Nodo<>();
+            this.primero = new Nodo<>(dato);
             this.ultimo = this.primero;
         } else {
             Nodo<T> actual = this.primero;
@@ -37,7 +37,7 @@ public class ListaDoble<T> implements Serializable, Lista<T> {
             }
             Nodo<T> temporal = this.ultimo;
             Nodo<T> anterior = temporal;
-            temporal.siguiente = new Nodo<>();
+            temporal.siguiente = new Nodo<>(dato);
             temporal = temporal.siguiente;
             temporal.anterior = anterior;
             this.ultimo = temporal;
@@ -72,9 +72,15 @@ public class ListaDoble<T> implements Serializable, Lista<T> {
             return null;
         }
         Nodo<T> actual= primero;
-        for(int i = 0; i <= index; ++i){
+        for(int i = 0; i < index; ++i){
+            System.out.println(actual.getDato());
             actual = actual.siguiente;
         }
         return actual.getDato();
     }
+
+
 }
+
+
+

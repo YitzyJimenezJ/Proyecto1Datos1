@@ -1,7 +1,11 @@
 package codigoprincipal.proyecto1datos1.Comunicaciones;
 
+import codigoprincipal.proyecto1datos1.Ventanas.VentanaClienteJuego;
 import codigoprincipal.proyecto1datos1.protocolos.Protocolo;
 import codigoprincipal.proyecto1datos1.protocolos.elementosGraficos;
+import codigoprincipal.proyecto1datos1.protocolos.objetosImagenes;
+import javafx.scene.Group;
+import javafx.scene.image.ImageView;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,11 +17,15 @@ public class SesionCliente implements Runnable {
 
     String NombreJugador;
     String NombreJugador2;
+    String categoria;
+    VentanaClienteJuego ventanaCliente;
 
-    public SesionCliente(Socket socketCliente, String Nombre1, String Nombre2){
+    public SesionCliente(Socket socketCliente, String Nombre1, String Nombre2, String categoria,VentanaClienteJuego ventanaCliente){
         this.socketCliente = socketCliente;
         this.NombreJugador=Nombre1;
         this.NombreJugador2=Nombre2;
+        this.categoria=categoria;
+        this.ventanaCliente=ventanaCliente;
     }
 
     @Override
@@ -36,8 +44,9 @@ public class SesionCliente implements Runnable {
             is = socketCliente.getInputStream();
             isr = new InputStreamReader(is);
             br = new BufferedReader(isr);
+            String mensaje = NombreJugador+" "+NombreJugador2+" "+categoria;
 
-            Protocolo.writeStart(bw, Protocolo.cmdInicio, NombreJugador,NombreJugador2); //se llama al metodo del protocolo que envia el mensaje al servidor
+            Protocolo.writeMessage(bw, Protocolo.cmdInicio,mensaje); //se llama al metodo del protocolo que envia el mensaje al servidor
 
             System.out.println("ID es "+NombreJugador+NombreJugador2);
 
@@ -45,16 +54,6 @@ public class SesionCliente implements Runnable {
 
             System.out.println("Iniciando prueba lectura");
 
-            if(is.available()>0){
-                String[] completeCommand = Protocolo.readSplitMessage(br);
-
-                String commando = completeCommand[0]; //aqui se sabe cual comando recibio
-                System.out.println(commando);
-
-            }
-
-
-            /*
             do{
                 if(is.available()>0){
                     String[] completeCommand = Protocolo.readSplitMessage(br);
@@ -66,7 +65,17 @@ public class SesionCliente implements Runnable {
                             break;
                         }
                         case Protocolo.cmdCrear -> {
+                            double posX = Integer.parseInt(completeCommand[2]);
+                            double posY =Integer.parseInt(completeCommand[3]);
+                            String nombre=completeCommand[4];
+                            System.out.println("X: "+completeCommand[2]);
+                            System.out.println("Y: "+completeCommand[3]);
+                            System.out.println("Tipo Imagen: "+completeCommand[4]);
 
+                            //los objetos se crean en VentanaClienteJuego
+                            ventanaCliente.crearCartas(posX,posY,nombre);
+
+                            break;
                         }
                         case Protocolo.cmdVoltear -> {
 
@@ -74,7 +83,6 @@ public class SesionCliente implements Runnable {
                    }
                 }
             }while(socketCliente.isConnected());//corre mientras el socket esta conectado
-            */
         }catch(Exception e) {
             System.out.println("ERROR: "+e.getMessage());
         }

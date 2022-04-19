@@ -41,6 +41,8 @@ public class objetosImagenes {
     public double getPosicionX(){return posicionX;}
     public double getPosicionY(){return posicionY;}
     public String getTipoImagen(){return tipoImagen;}
+
+
 }
 
 

@@ -75,6 +75,31 @@ public class Imagenes {
     //le asigna a todas las imagenes su ruta
     private void cargarImagenes(){
         fondoPrincipal=cargarImagen(imgFondoPrincipal);
+        bananos=cargarImagen(imgBananos);
+        blancas=cargarImagen(imgBlancas);
+        conejo=cargarImagen(imgConejo);
+        erizo=cargarImagen(imgErizo);
+        florAzul=cargarImagen(imgFlorAzul);
+        fondoAnimales=cargarImagen(imgFondoAnimales);
+        fresas=cargarImagen(imgFresas);
+        gato=cargarImagen(imgGato);
+        girasol=cargarImagen(imgGirasol);
+        kiwi=cargarImagen(imgKiwi);
+        lapa=cargarImagen(imgLapa);
+        moradas=cargarImagen(imgMoradas);
+        naranja=cargarImagen(imgNaranja);
+        nutria=cargarImagen(imgNutria);
+        oso=cargarImagen(imgOso);
+        papaya=cargarImagen(imgPapaya);
+        perro=cargarImagen(imgPerro);
+        pina=cargarImagen(imgPina);
+        rosa=cargarImagen(imgRosa);
+        rosadas=cargarImagen(imgRosadas);
+        rosadas2=cargarImagen(imgRosada2);
+        sandia=cargarImagen(imgSandia);
+        tulipanes=cargarImagen(imgTulipanes);
+        uvas=cargarImagen(imgUvas);
+        vaca=cargarImagen(imgVaca);
     }
 
     public Image cargarImagen(String nombre){
@@ -87,6 +112,31 @@ public class Imagenes {
         }return enviar;
     }
     public Image getFondoPrincipal(){return fondoPrincipal;}
+    public Image getBananos(){return bananos;}
+    public Image getBlancas(){return blancas;}
+    public Image getConejo(){return conejo;}
+    public Image getErizo(){return erizo;}
+    public Image getFlorAzul(){return florAzul;}
+    public Image getFondoAnimales(){return fondoAnimales;}
+    public Image getFresas(){return fresas;}
+    public Image getGato(){return gato;}
+    public Image getGirasol(){return girasol;}
+    public Image getKiwi(){return kiwi;}
+    public Image getLapa(){return lapa;}
+    public Image getMoradas(){return moradas;}
+    public Image getNaranja(){return naranja;}
+    public Image getNutria(){return nutria;}
+    public Image getOso(){return oso;}
+    public Image getPapaya(){return papaya;}
+    public Image getPerro(){return perro;}
+    public Image getPina(){return pina;}
+    public Image getRosa(){return rosa;}
+    public Image getRosadas(){return rosadas;}
+    public Image getRosadas2(){return rosadas2;}
+    public Image getSandia(){return sandia;}
+    public Image getTulipanes(){return tulipanes;}
+    public Image getUvas(){return uvas;}
+    public Image getVaca(){return vaca;}
 
 
 }

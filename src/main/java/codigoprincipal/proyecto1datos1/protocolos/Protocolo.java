@@ -36,7 +36,6 @@ public class Protocolo {
 
     public static String[] readSplitMessage(BufferedReader br) throws IOException {
         String command = readMessage(br);
-        System.out.println("The command is: "+command);
         return command.split(" ");
     }
 }

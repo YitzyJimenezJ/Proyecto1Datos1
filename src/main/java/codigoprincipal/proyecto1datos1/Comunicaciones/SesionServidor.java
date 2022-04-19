@@ -1,5 +1,6 @@
 package codigoprincipal.proyecto1datos1.Comunicaciones;
 
+import codigoprincipal.proyecto1datos1.Imagenes.posicionesCartas;
 import codigoprincipal.proyecto1datos1.Listas.Lista;
 import codigoprincipal.proyecto1datos1.protocolos.Protocolo;
 import codigoprincipal.proyecto1datos1.protocolos.elementosGraficos;
@@ -7,6 +8,7 @@ import codigoprincipal.proyecto1datos1.protocolos.objetosImagenes;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Random;
 
 public class SesionServidor implements Runnable {
     private Socket socket;
@@ -17,6 +19,8 @@ public class SesionServidor implements Runnable {
 
     @Override
     public void run(){
+        posicionesCartas posicionesCartas = new posicionesCartas();
+        posicionesCartas.cargarPosiciones();
         OutputStream os = null;
         OutputStreamWriter osw;
         BufferedWriter bw;
@@ -39,8 +43,7 @@ public class SesionServidor implements Runnable {
 
             long lastSentTime = 0;
             do{
-                Protocolo.writeMessage(bw,"Messages sent from server");
-
+                /*
                 if(System.currentTimeMillis()-lastSentTime>200){
                     Lista<objetosImagenes> elementos = elementosGraficos.singleton.getElementos();//direccion de memoria de la lista
                     int tamanoElementos = elementos.tamanoLista();
@@ -57,15 +60,129 @@ public class SesionServidor implements Runnable {
                         }
                     }
                 }
-
+                */
                 if(is.available()>0){
                     String[] comandoCompleto = Protocolo.readSplitMessage(br);
                     String comando = comandoCompleto[0];
 
                     switch (comando){
                         case Protocolo.cmdInicio -> {
-                            //Iniciar la creacion de cada carta
+                            String nombre1=comandoCompleto[1];
+                            String nombre2=comandoCompleto[2];
+                            String categoria=comandoCompleto[3];
 
+                            switch (categoria){
+
+                                case "FLORES"->{
+                                    int i=0;
+
+                                    elementosGraficos tiposCartas = new elementosGraficos();
+
+                                    while(i<32){
+
+                                        int posX =posicionesCartas.getPosicion(i);
+                                        int posY= posicionesCartas.getPosicion(i+1);
+                                        String tipoImagen="NULL";
+                                        int tipo = tiposCartas.generarTipo();
+                                        if(tipo==1){
+                                            tipoImagen="blanzas.jpg";
+                                        }else if(tipo==2){
+                                            tipoImagen="florAzul.jpg";
+                                        }else if(tipo==3){
+                                            tipoImagen="girasol.jpg";
+                                        }else if(tipo==4){
+                                            tipoImagen="moradas.jpg";
+                                        }else if(tipo==5){
+                                            tipoImagen="rosa.jpg";
+                                        }else if(tipo==6){
+                                            tipoImagen="rosadas.jpg";
+                                        }else if(tipo==7){
+                                            tipoImagen="rosadasihj.jpg";
+                                        }else if(tipo==8){
+                                            tipoImagen="tulipanes.jpg";
+                                        }
+
+                                        String mensaje=categoria+" "+posX+" "+posY+" "+tipoImagen;
+                                        Protocolo.writeMessage(bw,Protocolo.cmdCrear,mensaje);
+                                        i+=2;
+                                    }
+                                    break;
+
+
+                                }
+                                case "ANIMALES"->{
+                                    int i=0;
+
+                                    elementosGraficos tiposCartas = new elementosGraficos();
+
+                                    while(i<32){
+
+                                        int posX =posicionesCartas.getPosicion(i);
+                                        int posY= posicionesCartas.getPosicion(i+1);
+                                        String tipoImagen="NULL";
+                                        int tipo = tiposCartas.generarTipo();
+                                        if(tipo==1){
+                                            tipoImagen="conejo.jpg";
+                                        }else if(tipo==2){
+                                            tipoImagen="erizo.jpg";
+                                        }else if(tipo==3){
+                                            tipoImagen="gato.jpg";
+                                        }else if(tipo==4){
+                                            tipoImagen="lapa.jpg";
+                                        }else if(tipo==5){
+                                            tipoImagen="nutria.jpg";
+                                        }else if(tipo==6){
+                                            tipoImagen="oso.jpg";
+                                        }else if(tipo==7){
+                                            tipoImagen="perro.jpg";
+                                        }else if(tipo==8){
+                                            tipoImagen="vaca.jpg";
+                                        }
+
+                                        String mensaje=categoria+" "+posX+" "+posY+" "+tipoImagen;
+                                        Protocolo.writeMessage(bw,Protocolo.cmdCrear,mensaje);
+                                        i+=2;
+                                    }
+                                    break;
+
+                                }
+                                case "FRUTAS"->{
+                                    int i=0;
+
+                                    elementosGraficos tiposCartas = new elementosGraficos();
+
+                                    while(i<32){
+
+                                        int posX =posicionesCartas.getPosicion(i);
+                                        int posY= posicionesCartas.getPosicion(i+1);
+                                        String tipoImagen="NULL";
+                                        int tipo = tiposCartas.generarTipo();
+                                        if(tipo==1){
+                                            tipoImagen="bananos.jpg";
+                                        }else if(tipo==2){
+                                            tipoImagen="fresas.jpg";
+                                        }else if(tipo==3){
+                                            tipoImagen="kiwi.jpg";
+                                        }else if(tipo==4){
+                                            tipoImagen="naranja.jpg";
+                                        }else if(tipo==5){
+                                            tipoImagen="papaya.jpg";
+                                        }else if(tipo==6){
+                                            tipoImagen="pina.jpg";
+                                        }else if(tipo==7){
+                                            tipoImagen="sandia.jpg";
+                                        }else if(tipo==8){
+                                            tipoImagen="uvas.jpg";
+                                        }
+
+                                        String mensaje=categoria+" "+posX+" "+posY+" "+tipoImagen;
+                                        Protocolo.writeMessage(bw,Protocolo.cmdCrear,mensaje);
+                                        i+=2;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
                         }
                     }
                 }
