@@ -224,7 +224,9 @@ public class SesionServidor implements Runnable {
                                     Protocolo.writeMessage(bw,Protocolo.cmdVoltear,volteable);
                                 }
                             if(!eliminar.equals("NULL")){
-                                Protocolo.writeMessage(bw,Protocolo.cmdEliminar,eliminar);
+                                String retornadoA = ventanaServidor.getPosicion1Regresar();
+                                String retornadoB = ventanaServidor.getPosicion2Regresar();
+                                Protocolo.writeMessage(bw,Protocolo.cmdEliminar,retornadoA+" "+retornadoB);
                             }
                             }
 

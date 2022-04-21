@@ -202,6 +202,9 @@ public class VentanaPrincipalServidor extends Canvas{
                     emparejadas.apilar(carta2);
                     posiciones.borrarDato(posicionUbicacion1);
                     posiciones.borrarDato(posicionUbicacion2);
+                    voltear1=String.valueOf(ubiPosicion1);
+                    voltear2=String.valueOf(ubiPosicion2);
+
                     if (turno == 0) {
                         puntaje1 += 1;
                     } else if (turno == 1) {

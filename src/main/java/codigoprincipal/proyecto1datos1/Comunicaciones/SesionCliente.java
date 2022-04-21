@@ -112,7 +112,12 @@ public class SesionCliente implements Runnable, EventHandler<MouseEvent>{
                             System.out.println("a descubrir");
                         }
                         case Protocolo.cmdEliminar -> {
-                            String tipoEliminar = completeCommand[1];
+                            int posicion1 = Integer.parseInt(completeCommand[2]);
+                            int posicion2 = Integer.parseInt(completeCommand[3]);
+                            Platform.runLater(()->{
+                                ventanaCliente.eliminarCarta(posicion1);
+                                ventanaCliente.eliminarCarta(posicion2);
+                            });
                             System.out.println("Eliminar");
                         }
                    }

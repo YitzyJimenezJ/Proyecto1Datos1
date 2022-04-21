@@ -44,8 +44,8 @@ public class VentanaClienteJuego{
         nom1.setText(nombre1);
         nom2.setText(nombre2);
         nom1.setX(10);
-        nom1.setY(10);
-        nom2.setY(25);
+        nom1.setY(25);
+        nom2.setY(55);
         nom2.setX(10);
         nom1.setFont(Font.font("Arial", FontWeight.BOLD,12));
         nom2.setFont(Font.font("Arial", FontWeight.BOLD,12));
@@ -103,6 +103,14 @@ public class VentanaClienteJuego{
         objetosImagenes cubierta = listaTapas.obtenerDato(posicion);
         ImageView tapa = cubierta.getImagen();
         ventanaJuego.getChildren().add(tapa);
+    }
+    public void eliminarCarta(int posicion){
+        objetosImagenes carta = listaCartas.obtenerDato(posicion);
+        objetosImagenes cubierta = listaTapas.obtenerDato(posicion);
+        ImageView car = carta.getImagen();
+        ImageView tapa = cubierta.getImagen();
+        ventanaJuego.getChildren().remove(tapa);
+        ventanaJuego.getChildren().remove(car);
     }
 
 
