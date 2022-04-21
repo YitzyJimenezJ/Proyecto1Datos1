@@ -10,23 +10,20 @@ public class posicionesCartas {
         posiciones=new ListaDoble<>();
     }
     public void cargarPosiciones(){
-        int posicionX=15;
+        int posicionX=106;
         int posicionY=100;
         for(int i=0;i<4;i++){
             for(int j=0;j<4;j++){
                 posiciones.agregarUltimo(posicionX);
                 posiciones.agregarUltimo(posicionY);
-                posicionX+=50;
+                posicionX+=76;
             }
-            posicionX=15;
-            posicionY+=60;
+            posicionX=106;
+            posicionY+=80;
         }
     }
     public int getPosicion(int i){
         return posiciones.obtenerDato(i);
-    }
-    public int getTamano(){
-        return posiciones.tamanoLista();
     }
 
 

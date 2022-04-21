@@ -3,15 +3,15 @@ package codigoprincipal.proyecto1datos1.Comunicaciones;
 import codigoprincipal.proyecto1datos1.Ventanas.VentanaClienteJuego;
 import codigoprincipal.proyecto1datos1.protocolos.Protocolo;
 import codigoprincipal.proyecto1datos1.protocolos.elementosGraficos;
-import codigoprincipal.proyecto1datos1.protocolos.objetosImagenes;
-import javafx.scene.Group;
-import javafx.scene.image.ImageView;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Random;
 
-public class SesionCliente implements Runnable {
+public class SesionCliente implements Runnable, EventHandler<MouseEvent>{
     Socket socketCliente;
     BufferedWriter bw;
 
@@ -46,7 +46,12 @@ public class SesionCliente implements Runnable {
             br = new BufferedReader(isr);
             String mensaje = NombreJugador+" "+NombreJugador2+" "+categoria;
 
+
             Protocolo.writeMessage(bw, Protocolo.cmdInicio,mensaje); //se llama al metodo del protocolo que envia el mensaje al servidor
+
+
+            //invocacion de clicks
+            VentanaClienteJuego.ventanaJuego.setOnMouseClicked(this);
 
             System.out.println("ID es "+NombreJugador+NombreJugador2);
 
@@ -68,17 +73,47 @@ public class SesionCliente implements Runnable {
                             double posX = Integer.parseInt(completeCommand[2]);
                             double posY =Integer.parseInt(completeCommand[3]);
                             String nombre=completeCommand[4];
-                            System.out.println("X: "+completeCommand[2]);
-                            System.out.println("Y: "+completeCommand[3]);
-                            System.out.println("Tipo Imagen: "+completeCommand[4]);
 
                             //los objetos se crean en VentanaClienteJuego
-                            ventanaCliente.crearCartas(posX,posY,nombre);
-
+                            Platform.runLater(()->{
+                                ventanaCliente.crearCartas(posX,posY,nombre);
+                                    }
+                            );
                             break;
                         }
-                        case Protocolo.cmdVoltear -> {
+                        case Protocolo.cmdTapar -> {
+                            double posX = Integer.parseInt(completeCommand[1]);
+                            double posY = Integer.parseInt(completeCommand[2]);
+                            Platform.runLater(()-> {
+                                ventanaCliente.taparCartas(posX, posY);
+                                }
+                            );
 
+                        }
+                        case Protocolo.cmdFallo -> {
+                            int iterando1 =Integer.parseInt(completeCommand[1]);
+                            int iterando2 =Integer.parseInt(completeCommand[2]);
+                            Platform.runLater(()->{
+                                ventanaCliente.retaparCarta(iterando1);
+                                ventanaCliente.retaparCarta(iterando2);
+                            });
+
+
+                        }
+
+                        case Protocolo.cmdVoltear->{
+                            String comandoVolt=completeCommand[1];
+                            System.out.println(comandoVolt);
+                            int posicionVoltear=Integer.parseInt(comandoVolt);
+
+                            Platform.runLater(()->{
+                                ventanaCliente.descubrirCarta(posicionVoltear);
+                            });
+                            System.out.println("a descubrir");
+                        }
+                        case Protocolo.cmdEliminar -> {
+                            String tipoEliminar = completeCommand[1];
+                            System.out.println("Eliminar");
                         }
                    }
                 }
@@ -87,7 +122,21 @@ public class SesionCliente implements Runnable {
             System.out.println("ERROR: "+e.getMessage());
         }
     }
-    //Falta un handle
+
+    @Override
+    public void handle(MouseEvent event) {
+        int posicionX = (int)event.getX();
+        int posicionY = (int)event.getY();
+        if (event.getClickCount() > 0) {
+            try {
+                String mensaje=posicionX+" "+posicionY;
+                Protocolo.writeMessage(bw, Protocolo.cmdClick,mensaje);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
 
     public static String generarId(){

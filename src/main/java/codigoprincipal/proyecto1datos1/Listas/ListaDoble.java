@@ -1,10 +1,11 @@
 package codigoprincipal.proyecto1datos1.Listas;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ListaDoble<T> implements Serializable, Lista<T> {
-    private Nodo<T> primero;
-    private Nodo<T> ultimo;
+    public Nodo<T> primero;
+    public Nodo<T> ultimo;
     private int largo;
 
     public ListaDoble(){
@@ -73,13 +74,17 @@ public class ListaDoble<T> implements Serializable, Lista<T> {
         }
         Nodo<T> actual= primero;
         for(int i = 0; i < index; ++i){
-            System.out.println(actual.getDato());
             actual = actual.siguiente;
         }
         return actual.getDato();
     }
 
-
+    public static void main(String[] args){
+        ListaDoble<String> L = new ListaDoble<>();
+        L.agregarUltimo("2");
+        L.agregarUltimo("4");
+        System.out.println(L.tamanoLista());
+    }
 }
 
 

@@ -29,7 +29,6 @@ public class Server implements Runnable{
 
     @Override
     public void run(){
-        System.out.println("Puerto del server al puerto "+port);
         try{
             socketServidor= new ServerSocket(port);
 

@@ -21,10 +21,5 @@ class Nodo<T> implements Serializable {
     }
 
     public T getDato(){return this.valor;}
-    public void setDato(T valor){this.valor=valor;}
-    public Nodo<T> getSiguiente(){return this.siguiente;}
-    public void setSiguiente(Nodo<T> nodo){this.siguiente = nodo;}
-    public int getPosicion(){return posicion;}
-    public void setPosicion(int posicion){this.posicion = posicion;}
 
 }

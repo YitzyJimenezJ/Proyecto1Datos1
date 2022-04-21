@@ -10,10 +10,12 @@ public class Protocolo {
     public static final String cmdCrear = "crear";
     public static final String cmdVoltear = "voltear";
     public static final String cmdFallo = "fallo";
+    public static final String cmdEliminar = "eliminar";
 
     //Cliente manda
     public static final String cmdInicio="iniciar";
-    public static final String cmd="iniciar";
+    public static final String cmdClick="click";
+    public static final String cmdTapar="cubrir";
 
     public static void writeMessage(BufferedWriter bw, String message) throws IOException {
         bw.write(message);
